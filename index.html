@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaseen Dawood — Software Developer</title>
+<meta name="description" content="Virtual CV of Yaseen Dawood, full-stack and applications developer. Projects, skills, experience and contact details.">
+
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#F6F7FC;
+  --panel:#FFFFFF;
+  --ink:#10131C;
+  --ink-soft:#535A70;
+  --ink-faint:#8A90A6;
+  --accent:#3B4FE0;
+  --accent-deep:#2431A8;
+  --signal:#EE9F35;
+  --line:#E1E3EF;
+  --code-bg:#0E1220;
+  --code-line:#232A44;
+  --code-text:#D9DEF2;
+  --radius:14px;
+  --wrap:1140px;
+
+  --display:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--body);
+  background:transparent;
+  color:var(--ink);
+  line-height:1.65;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+#vanta-bg{
+  position:fixed;
+  top:0;left:0;
+  width:100vw;height:100vh;
+  z-index:-1;
+}
+h1,h2,h3,h4{font-family:var(--display);color:var(--ink);line-height:1.15;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+img{max-width:100%;display:block;}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 1.5rem;}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.75rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  margin-bottom:.9rem;
+}
+.eyebrow::before{content:'//';color:var(--ink-faint);}
+.section{padding:6rem 0;}
+.section-head{max-width:640px;margin-bottom:3rem;}
+.section-head h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:.75rem;}
+.section-head p{color:var(--ink-soft);font-size:1.02rem;}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:.9rem;font-weight:500;
+  padding:.85rem 1.5rem;border-radius:8px;border:1px solid transparent;
+  cursor:pointer;transition:.25s;
+}
+.btn-primary{background:var(--ink);color:#fff;}
+.btn-primary:hover{background:var(--accent-deep);}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:transparent;}
+.btn-ghost:hover{border-color:var(--ink);}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none;}
+  html{scroll-behavior:auto;}
+}
+
+/* ============ NAV (editor tab bar) ============ */
+.header{
+  position:fixed;top:0;left:0;width:100%;z-index:100;
+  background:rgba(246,247,252,.85);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;height:3.75rem;gap:.25rem;}
+.nav-brand{
+  font-family:var(--mono);font-weight:600;font-size:.95rem;
+  padding-right:1.25rem;margin-right:.5rem;border-right:1px solid var(--line);
+  white-space:nowrap;
+}
+.nav-brand span{color:var(--accent);}
+.tabs{
+  display:flex;gap:.15rem;overflow-x:auto;scrollbar-width:none;flex:1;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  font-family:var(--mono);font-size:.82rem;color:var(--ink-soft);
+  padding:.55rem .9rem;border-radius:8px 8px 0 0;white-space:nowrap;
+  border-bottom:2px solid transparent;transition:.2s;
+}
+.tab .dot{color:var(--signal);}
+.tab:hover{color:var(--ink);background:rgba(59,79,224,.06);}
+.tab.active{color:var(--accent-deep);border-bottom-color:var(--accent);background:rgba(59,79,224,.07);}
+
+/* ============ HERO ============ */
+.home{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  padding-top:3.75rem;
+}
+.home .wrap{position:relative;width:100%;}
+.home-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;}
+
+.terminal-lead{
+  font-family:var(--mono);font-size:.85rem;color:var(--accent-deep);
+  margin-bottom:1.25rem;display:flex;align-items:center;gap:.6rem;
+}
+.terminal-lead .pulse{
+  width:8px;height:8px;border-radius:50%;background:#3DBE64;
+  box-shadow:0 0 0 rgba(61,190,100,.6);animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(61,190,100,.5);}
+  70%{box-shadow:0 0 0 8px rgba(61,190,100,0);}
+  100%{box-shadow:0 0 0 0 rgba(61,190,100,0);}
+}
+.home h1{font-size:clamp(2.4rem,5vw,3.75rem);margin-bottom:.5rem;}
+.home h1 em{font-style:normal;color:var(--accent);}
+.home .role{font-size:clamp(1.05rem,2vw,1.3rem);color:var(--ink-soft);margin-bottom:1.5rem;font-family:var(--display);font-weight:500;}
+.home-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.75rem;}
+.home-social{display:flex;gap:1.4rem;margin-top:2rem;}
+.home-social a{font-size:1.3rem;color:var(--ink-soft);transition:.2s;}
+.home-social a:hover{color:var(--accent);}
+
+.term{
+  background:var(--code-bg);border-radius:12px;overflow:hidden;
+  box-shadow:0 30px 60px -20px rgba(16,19,28,.45);
+  border:1px solid #1c2140;
+}
+.term-bar{
+  display:flex;align-items:center;gap:.4rem;padding:.75rem 1rem;
+  background:#141833;border-bottom:1px solid #1c2140;
+}
+.term-dot{width:10px;height:10px;border-radius:50%;}
+.term-dot.r{background:#FF5F57;}
+.term-dot.y{background:#FEBC2E;}
+.term-dot.g{background:#28C840;}
+.term-title{
+  font-family:var(--mono);font-size:.75rem;color:#7B84AC;margin-left:.6rem;
+}
+.term-body{padding:1.5rem 1.25rem;font-family:var(--mono);font-size:.88rem;min-height:190px;color:var(--code-text);}
+.term-body .ln{margin-bottom:.9rem;}
+.term-body .prompt{color:#6E7AFF;}
+.term-body .out{color:var(--code-text);opacity:.9;}
+.term-body .out.muted{color:#7B84AC;}
+.caret{display:inline-block;width:7px;height:1.05em;background:var(--code-text);vertical-align:text-bottom;animation:blink 1s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:3rem;align-items:start;}
+.monogram{
+  width:100%;aspect-ratio:1;border-radius:var(--radius);
+  background:linear-gradient(155deg,var(--ink) 0%,#232A44 60%,var(--accent-deep) 100%);
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+}
+.monogram::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.monogram span{
+  font-family:var(--mono);font-size:clamp(3rem,8vw,5rem);font-weight:600;color:#fff;position:relative;
+  letter-spacing:-.02em;
+}
+.about-facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.75rem;}
+.fact{border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;background:var(--panel);}
+.fact .k{font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;}
+.fact .v{font-size:.95rem;font-weight:500;}
+.about-body p{color:var(--ink-soft);margin-bottom:1.1rem;font-size:1.03rem;}
+.about-body .lede{font-size:1.15rem;color:var(--ink);font-family:var(--display);font-weight:500;margin-bottom:1.25rem;}
+
+/* ============ EXPERIENCE (timeline) ============ */
+.timeline{border-left:2px solid var(--line);margin-left:.4rem;}
+.tl-item{position:relative;padding:0 0 2.75rem 2rem;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{
+  content:'';position:absolute;left:-7px;top:.35rem;width:12px;height:12px;
+  border-radius:50%;background:var(--panel);border:2px solid var(--accent);
+}
+.tl-period{font-family:var(--mono);font-size:.78rem;color:var(--accent-deep);margin-bottom:.35rem;display:block;}
+.tl-item h3{font-size:1.15rem;margin-bottom:.2rem;}
+.tl-org{color:var(--ink-soft);font-size:.92rem;margin-bottom:.75rem;}
+.tl-item ul{color:var(--ink-soft);font-size:.95rem;display:flex;flex-direction:column;gap:.45rem;}
+.tl-item ul li{position:relative;padding-left:1.1rem;}
+.tl-item ul li::before{content:'—';position:absolute;left:0;color:var(--ink-faint);}
+
+/* ============ SKILLS ============ */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.75rem;}
+.skill-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem 1.75rem;}
+.skill-card h3{font-size:.85rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);margin-bottom:1.1rem;font-weight:500;}
+.chip-row{display:flex;flex-wrap:wrap;gap:.55rem;}
+.chip{
+  font-family:var(--mono);font-size:.83rem;padding:.4rem .75rem;border-radius:6px;
+  background:#EEF0FB;color:var(--ink);border:1px solid transparent;
+}
+.chip.dist{background:var(--ink);color:#fff;}
+.chip.dist::after{content:' •';color:var(--signal);}
+.legend{font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);margin-top:1.25rem;}
+.legend .dotchip{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--ink);margin-right:.4rem;}
+
+/* ============ PROJECTS ============ */
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.75rem;}
+.proj-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.9rem;display:flex;flex-direction:column;transition:.25s;
+}
+.proj-card:hover{border-color:var(--accent);box-shadow:0 20px 40px -24px rgba(59,79,224,.35);}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.9rem;gap:1rem;}
+.proj-top h3{font-size:1.2rem;}
+.proj-index{font-family:var(--mono);font-size:.75rem;color:var(--ink-faint);}
+.proj-card p{color:var(--ink-soft);font-size:.95rem;margin-bottom:1rem;}
+.proj-card ul{color:var(--ink-soft);font-size:.9rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;}
+.proj-card ul li{position:relative;padding-left:1rem;}
+.proj-card ul li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:.75rem;top:.2rem;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.25rem;}
+.tag{font-family:var(--mono);font-size:.72rem;color:var(--accent-deep);background:#EEF0FB;padding:.25rem .55rem;border-radius:5px;}
+.proj-links{margin-top:auto;display:flex;gap:.75rem;flex-wrap:wrap;}
+.proj-links a{
+  font-family:var(--mono);font-size:.82rem;display:inline-flex;align-items:center;gap:.4rem;
+  padding:.5rem .9rem;border:1px solid var(--line);border-radius:7px;transition:.2s;
+}
+.proj-links a:hover{border-color:var(--ink);background:var(--ink);color:#fff;}
+
+/* ============ EDUCATION ============ */
+.edu-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:1.75rem;}
+.edu-card,.badge-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.9rem;}
+.edu-card h3{font-size:1.2rem;margin-bottom:.3rem;}
+.edu-card .tl-org{margin-bottom:.5rem;}
+.gpa{
+  display:inline-flex;align-items:baseline;gap:.4rem;font-family:var(--mono);
+  background:#EEF0FB;color:var(--accent-deep);padding:.4rem .8rem;border-radius:7px;font-size:.85rem;margin-top:.75rem;
+}
+.badge-card{display:flex;flex-direction:column;justify-content:center;gap:.6rem;text-align:left;}
+.badge-card .ic{font-size:1.6rem;color:var(--signal);}
+.badge-card h4{font-size:1.02rem;}
+.badge-card p{color:var(--ink-soft);font-size:.88rem;}
+
+/* ============ INTERESTS ============ */
+.interest-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.interest-card{padding:1.5rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);}
+.interest-card .ic{font-size:1.5rem;color:var(--accent);margin-bottom:.75rem;}
+.interest-card h4{font-size:1rem;margin-bottom:.35rem;}
+.interest-card p{font-size:.88rem;color:var(--ink-soft);}
+
+/* ============ CONTACT ============ */
+.contact-panel{
+  background:var(--code-bg);border-radius:20px;padding:3.5rem 3rem;color:#fff;
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;
+}
+.contact-panel .eyebrow{color:#8C97FF;}
+.contact-panel h2{color:#fff;font-size:clamp(1.6rem,3vw,2.1rem);margin-bottom:1rem;}
+.contact-panel p{color:#B7BBD9;margin-bottom:1.75rem;font-size:1rem;}
+.contact-list{display:flex;flex-direction:column;gap:1.1rem;}
+.contact-list a{display:flex;align-items:center;gap:.9rem;color:#fff;font-size:.98rem;}
+.contact-list .ic{
+  width:2.5rem;height:2.5rem;border-radius:8px;background:rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#8C97FF;flex-shrink:0;
+}
+.contact-list a:hover .ic{background:var(--accent);color:#fff;}
+.contact-panel .btn-primary{background:var(--accent);}
+.contact-panel .btn-primary:hover{background:#5062E8;}
+
+/* ============ FOOTER ============ */
+.footer{padding:2.5rem 0;text-align:center;}
+.footer p{color:var(--ink-faint);font-size:.85rem;font-family:var(--mono);}
+
+/* ============ SCROLL TOP ============ */
+.scrolltop{
+  position:fixed;bottom:1.5rem;right:1.5rem;background:var(--ink);color:#fff;
+  width:2.75rem;height:2.75rem;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;box-shadow:0 8px 20px rgba(16,19,28,.25);opacity:0;visibility:hidden;transition:.3s;z-index:90;
+}
+.scrolltop.show{opacity:1;visibility:visible;}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .home-grid,.about-grid,.edu-grid,.contact-panel{grid-template-columns:1fr;}
+  .skills-grid,.proj-grid,.interest-row{grid-template-columns:1fr;}
+  .about-facts{grid-template-columns:1fr 1fr;}
+  .monogram{max-width:220px;margin:0 auto 1rem;}
+  .section{padding:4rem 0;}
+  .contact-panel{padding:2.5rem 1.75rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="vanta-bg"></div>
+
+<header class="header">
+  <nav class="nav wrap">
+    <span class="nav-brand">Y<span>D</span></span>
+    <div class="tabs" id="tabs">
+      <a href="#home" class="tab" data-target="home">Home</a>
+      <a href="#about" class="tab" data-target="about">About</a>
+      <a href="#experience" class="tab" data-target="experience">Experience</a>
+      <a href="#skills" class="tab" data-target="skills">Skills</a>
+      <a href="#projects" class="tab" data-target="projects">Projects</a>
+      <a href="#education" class="tab" data-target="education">Education</a>
+      <a href="#contact" class="tab" data-target="contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- ==================== HOME ==================== -->
+  <section class="home" id="home">
+    <div class="wrap">
+      <div class="home-grid">
+        <div>
+          <div class="terminal-lead"><span class="pulse"></span> OPEN TO GRADUATE SOFTWARE ROLES</div>
+          <h1>Yaseen Dawood</h1>
+          <p class="role">BSc IT, North-West University</p>
+          <div class="home-actions">
+            <a href="#projects" class="btn btn-primary"><i class="uil uil-arrow-right"></i> View projects</a>
+            <a href="Yaseen_Dawood_CV_2026.pdf" class="btn btn-ghost" download><i class="uil uil-file-download-alt"></i> Download CV</a>
+          </div>
+          <div class="home-social">
+            <a href="https://github.com/YDawood03" target="_blank" rel="noopener" aria-label="GitHub"><i class="uil uil-github-alt"></i></a>
+            <a href="https://linkedin.com/in/yaseendawood" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="uil uil-linkedin-alt"></i></a>
+            <a href="mailto:yaseen.dawood.com@gmail.com" aria-label="Email"><i class="uil uil-envelope"></i></a>
+          </div>
+        </div>
+
+        <div class="term">
+          <div class="term-bar">
+            <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+            <span class="term-title">yaseen@portfolio — zsh</span>
+          </div>
+          <div class="term-body" id="term-body" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="monogram"><span>YD</span></div>
+          <div class="about-facts">
+            <div class="fact"><div class="k">Location</div><div class="v">Johannesburg, ZA</div></div>
+            <div class="fact"><div class="k">Role</div><div class="v">Software Developer</div></div>
+            <div class="fact"><div class="k">Studying</div><div class="v">BSc IT, NWU</div></div>
+            <div class="fact"><div class="k">Currently</div><div class="v">Teaching Assistant</div></div>
+          </div>
+        </div>
+        <div class="reveal about-body">
+          <div class="eyebrow">About me</div>
+          <p class="lede">Three deployed, production-facing projects — before graduating.</p>
+          <p>I'm a final-year BSc Information Technology student at North-West University with hands-on experience across web and desktop development. I've delivered a live corporate website for a law firm, a C# desktop invoicing system for a retail client, and an AI-powered Forex tutoring chatbot hosted on Microsoft Azure — each one used by real people, not just marked and shelved.</p>
+          <p>I'm currently a Teaching Assistant for C++, Python and Java, supporting over 100 students per session and helping lift the class average through extra lab sessions and one-on-one debugging help. I'm looking for a graduate software development role where I can keep building reliable, real-world solutions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EXPERIENCE ==================== -->
+  <section class="section" id="experience" style="background:rgba(255,255,255,.55);backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Experience</div>
+        <h2>Work history</h2>
+        <p>From front-desk retail to teaching production-level programming logic.</p>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-item">
+          <span class="tl-period">02/2025 — Present</span>
+          <h3>Teaching Assistant</h3>
+          <p class="tl-org">North-West University</p>
+          <ul>
+            <li>Support 100+ students per session with C++, Python and Java during practical labs, resolving debugging issues and clarifying core programming logic.</li>
+            <li>Ran additional online lecture sessions and one-on-one support outside scheduled labs, contributing to a measurable improvement in the class average.</li>
+            <li>Assist lecturers with marking, grading and administrative coordination for practical coursework.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <span class="tl-period">01/2023 — 02/2024</span>
+          <h3>Legal Administrator</h3>
+          <p class="tl-org">Sohail Manga Attorneys</p>
+          <ul>
+            <li>Redesigned the firm's document filing system, making case files faster to organise and retrieve, and helping the practice take on more clients.</li>
+            <li>Managed daily office operations, keeping document turnaround and scheduling on track for a busy legal practice.</li>
+            <li>Drafted legal documents and professional correspondence for client-facing matters.</li>
+            <li>Prepared invoices and tracked payments in Microsoft Excel, maintaining accurate financial records.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <span class="tl-period">03/2020 — 01/2023</span>
+          <h3>Cashier</h3>
+          <p class="tl-org">Postnet Lenasia</p>
+          <ul>
+            <li>Handled parcel sending, receiving and collection alongside daily customer transactions in a high-footfall retail environment.</li>
+            <li>Provided front-desk customer service that contributed to an increase in store sales during the role.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS ==================== -->
+  <section class="section" id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Skills</div>
+        <h2>What I work with</h2>
+        <p>Language grades are from official NWU coursework results.</p>
+      </div>
+      <div class="skills-grid reveal">
+        <div class="skill-card">
+          <h3>Languages</h3>
+          <div class="chip-row">
+            <span class="chip dist">C++</span>
+            <span class="chip dist">Python</span>
+            <span class="chip dist">Java</span>
+            <span class="chip dist">C#</span>
+            <span class="chip">SQL</span>
+            <span class="chip">HTML</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Frameworks &amp; Tools</h3>
+          <div class="chip-row">
+            <span class="chip">ASP.NET</span>
+            <span class="chip">.NET MAUI</span>
+            <span class="chip">WinForms</span>
+            <span class="chip">WPF</span>
+            <span class="chip">Git</span>
+            <span class="chip">GitHub</span>
+            <span class="chip">VS Code</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Databases &amp; Infrastructure</h3>
+          <div class="chip-row">
+            <span class="chip">MySQL Workbench</span>
+            <span class="chip">SQLite</span>
+            <span class="chip">FTP</span>
+            <span class="chip">DNS</span>
+            <span class="chip">IIS</span>
+            <span class="chip">Azure App Service</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Data Analysis</h3>
+          <div class="chip-row">
+            <span class="chip">Pandas</span>
+            <span class="chip">Matplotlib</span>
+          </div>
+        </div>
+      </div>
+      <div class="legend reveal"><span class="dotchip"></span>Dark chips indicate a Distinction result.</div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS ==================== -->
+  <section class="section" id="projects" style="background:rgba(255,255,255,.55);backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Projects</div>
+        <h2>Technical projects</h2>
+        <p>Four builds, four different problems — from an NLP chatbot to a law firm's DNS migration.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj-card reveal">
+          <div class="proj-top"><h3>ForexTutorBot</h3><span class="proj-index">01 / AI</span></div>
+          <p>An AI-powered Forex study assistant that answers trading questions in plain language.</p>
+          <ul>
+            <li>Built an intelligent Q&amp;A system with Flask, scikit-learn and NLP, reaching 85%+ matching accuracy across 48+ curated forex concepts.</li>
+            <li>Deployed to Azure App Service with GitHub Actions CI/CD on the free tier, so every push redeploys automatically.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">scikit-learn</span><span class="tag">HTML</span></div>
+          <div class="proj-links">
+            <a href="https://forextutorbot-app-c5cmhze9dbhed0cq.southafricanorth-01.azurewebsites.net/" target="_blank" rel="noopener"><i class="uil uil-external-link-alt"></i> Live demo</a>
+            <a href="https://github.com/YDawood03/ForexTutorBot" target="_blank" rel="noopener"><i class="uil uil-github-alt"></i> Repository</a>
+          </div>
+        </article>
+
+        <article class="proj-card reveal">
+          <div class="proj-top"><h3>TayTech</h3><span class="proj-index">02 / Desktop</span></div>
+          <p>Invoicing &amp; client management system for a local technology retail shop.</p>
+          <ul>
+            <li>Standalone desktop app managing client records and business transactions with full CRUD and multi-field search.</li>
+            <li>Automated invoice generation with exact tax parameters and clean PDF exports, replacing manual paperwork.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">C#</span><span class="tag">WinForms</span><span class="tag">SQLite</span></div>
+          <div class="proj-links">
+            <a href="https://github.com/YDawood03/TayTech" target="_blank" rel="noopener"><i class="uil uil-github-alt"></i> Repository</a>
+          </div>
+        </article>
+
+        <article class="proj-card reveal">
+          <div class="proj-top"><h3>Sohail Manga Attorneys</h3><span class="proj-index">03 / Web</span></div>
+          <p>A live corporate website built and deployed for a functioning law firm.</p>
+          <ul>
+            <li>Coordinated directly with a third-party IT provider on FTP transfer, DNS mapping and server configuration.</li>
+            <li>Diagnosed and resolved critical 403/404 errors while migrating from ASP.NET to Linux-compatible hosting, restoring full production status.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">HTML</span><span class="tag">FTP</span><span class="tag">DNS</span></div>
+          <div class="proj-links">
+            <a href="https://mangalaw.co.za" target="_blank" rel="noopener"><i class="uil uil-external-link-alt"></i> Live site</a>
+            <a href="https://github.com/YDawood03/Sohail-Manga-Attorneys-" target="_blank" rel="noopener"><i class="uil uil-github-alt"></i> Repository</a>
+          </div>
+        </article>
+
+        <article class="proj-card reveal">
+          <div class="proj-top"><h3>Blue River Zoo Management System</h3><span class="proj-index">04 / Team</span></div>
+          <p>A C# web application managing animal records, staff scheduling and daily zoo operations.</p>
+          <ul>
+            <li>Collaborated in a 5-person engineering team; built the staff scheduling module end-to-end.</li>
+            <li>Took ownership of integrating all five members' modules, then led final testing and delivery, resolving integration conflicts ahead of submission.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">C#</span><span class="tag">SQL</span><span class="tag">HTML</span><span class="tag">ASP.NET</span></div>
+          <div class="proj-links">
+            <a href="https://github.com/tsholofelospicegirl17-hub/BlueRiverZoo" target="_blank" rel="noopener"><i class="uil uil-github-alt"></i> Repository</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EDUCATION ==================== -->
+  <section class="section" id="education">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Education</div>
+        <h2>Qualification</h2>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <h3>Bachelor of Science in Information Technology</h3>
+          <p class="tl-org">North-West University · 02/2024 — 2026</p>
+          <span class="gpa">Current GPA · 72.5%</span>
+        </div>
+        <div class="badge-card reveal">
+          <i class="uil uil-award ic"></i>
+          <h4>Golden Key International Honour Society</h4>
+          <p>Invited to membership in recognition of academic standing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INTERESTS ==================== -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Outside of work</div>
+        <h2>Interests</h2>
+      </div>
+      <div class="interest-row">
+        <div class="interest-card reveal">
+          <i class="uil uil-gamepad ic"></i>
+          <h4>Gamer &amp; esports player</h4>
+          <p>Competitive member of the North-West University esports team.</p>
+        </div>
+        <div class="interest-card reveal">
+          <i class="uil uil-football ic"></i>
+          <h4>Football enthusiast</h4>
+          <p>Active player and lifelong follower of the sport.</p>
+        </div>
+        <div class="interest-card reveal">
+          <i class="uil uil-brain ic"></i>
+          <h4>Emerging technology</h4>
+          <p>Following developments in machine learning and applying new tools to personal projects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="contact-panel reveal">
+        <div>
+          <div class="eyebrow">Get in touch</div>
+          <h2>Let's build something reliable together.</h2>
+          <p>Open to graduate software development roles — happy to talk through any of the projects above in more detail.</p>
+          <a href="mailto:yaseen.dawood.com@gmail.com" class="btn btn-primary"><i class="uil uil-envelope"></i> Email me</a>
+        </div>
+        <div class="contact-list">
+          <a href="mailto:yaseen.dawood.com@gmail.com"><span class="ic"><i class="uil uil-envelope"></i></span> yaseen.dawood.com@gmail.com</a>
+          <a href="tel:+27760336903"><span class="ic"><i class="uil uil-phone"></i></span> 076 033 6903</a>
+          <a href="https://github.com/YDawood03" target="_blank" rel="noopener"><span class="ic"><i class="uil uil-github-alt"></i></span> github.com/YDawood03</a>
+          <a href="https://linkedin.com/in/yaseendawood" target="_blank" rel="noopener"><span class="ic"><i class="uil uil-linkedin-alt"></i></span> linkedin.com/in/yaseendawood</a>
+          <a href="#"><span class="ic"><i class="uil uil-location-point"></i></span> Johannesburg, South Africa</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&#47;&#47; built by Yaseen Dawood — 2026</p>
+</footer>
+
+<a href="#home" class="scrolltop" id="scroll-top" aria-label="Scroll to top"><i class="uil uil-arrow-up"></i></a>
+
+<script>
+/* ---------- Scroll top button ---------- */
+const scrollTop = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => {
+  scrollTop.classList.toggle('show', window.scrollY > 400);
+});
+
+/* ---------- Scrollspy on tabs ---------- */
+const tabs = document.querySelectorAll('.tab');
+const sections = [...tabs].map(t => document.getElementById(t.dataset.target)).filter(Boolean);
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      tabs.forEach(t => t.classList.remove('active'));
+      const match = document.querySelector(`.tab[data-target="${entry.target.id}"]`);
+      if(match) match.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -50% 0px' });
+sections.forEach(s => spy.observe(s));
+
+/* ---------- Reveal on scroll ---------- */
+const revealEls = document.querySelectorAll('.reveal');
+const reveal = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('in-view');
+      reveal.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => reveal.observe(el));
+
+/* ---------- Terminal typing sequence ---------- */
+const termBody = document.getElementById('term-body');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sequence = [
+  { prompt: '$ whoami', output: 'Yaseen Dawood — Software Developer' },
+  { prompt: '$ cat focus.txt', output: 'Full-stack & applications · Final-year BSc IT @ NWU' },
+  { prompt: '$ ./status.sh', output: 'Available for graduate roles → Johannesburg, ZA' }
+];
+
+function renderStatic(){
+  termBody.innerHTML = sequence.map(l =>
+    `<div class="ln"><span class="prompt">${l.prompt}</span></div><div class="ln out">${l.output}</div>`
+  ).join('');
+}
+
+function typeLine(text, el, speed, cb){
+  let i = 0;
+  (function tick(){
+    if(i <= text.length){
+      el.textContent = text.slice(0, i);
+      i++;
+      setTimeout(tick, speed);
+    } else if(cb){ cb(); }
+  })();
+}
+
+function runSequence(idx){
+  if(idx >= sequence.length){
+    const caret = document.createElement('span');
+    caret.className = 'caret';
+    termBody.appendChild(caret);
+    return;
+  }
+  const item = sequence[idx];
+  const promptLine = document.createElement('div');
+  promptLine.className = 'ln';
+  const promptSpan = document.createElement('span');
+  promptSpan.className = 'prompt';
+  promptLine.appendChild(promptSpan);
+  termBody.appendChild(promptLine);
+
+  typeLine(item.prompt, promptSpan, 35, () => {
+    setTimeout(() => {
+      const outLine = document.createElement('div');
+      outLine.className = 'ln out';
+      termBody.appendChild(outLine);
+      typeLine(item.output, outLine, 16, () => {
+        setTimeout(() => runSequence(idx + 1), 450);
+      });
+    }, 250);
+  });
+}
+
+if(reducedMotion){
+  renderStatic();
+} else {
+  runSequence(0);
+}
+
+/* ---------- Vanta fog background ---------- */
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof VANTA !== 'undefined' && typeof THREE !== 'undefined') {
+    VANTA.FOG({
+      el: '#vanta-bg',
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      highlightColor: 0xffffff,
+      midtoneColor: 0xffffff,
+      lowlightColor: 0xffffff,
+      baseColor: 0xecebff,
+      blurFactor: 0.84,
+      speed: 3.5
+    });
+  }
+});
+</script>
+</body>
+</html>
