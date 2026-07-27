@@ -173,18 +173,23 @@ img{max-width:100%;display:block;}
 /* ============ ABOUT ============ */
 .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:3rem;align-items:start;}
 .monogram{
-  width:100%;aspect-ratio:1;border-radius:var(--radius);
+  width:100%;aspect-ratio:4/5;border-radius:var(--radius);
   background:linear-gradient(155deg,var(--ink) 0%,#232A44 60%,var(--accent-deep) 100%);
-  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  position:relative;overflow:hidden;
 }
 .monogram::before{
-  content:'';position:absolute;inset:0;
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
   background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
   background-size:24px 24px;
 }
-.monogram span{
-  font-family:var(--mono);font-size:clamp(3rem,8vw,5rem);font-weight:600;color:#fff;position:relative;
-  letter-spacing:-.02em;
+.monogram img{
+  width:100%;height:100%;object-fit:cover;position:relative;z-index:1;
+  filter:grayscale(.15) contrast(1.03);
+}
+.monogram .tag{
+  position:absolute;bottom:.9rem;left:.9rem;z-index:3;
+  font-family:var(--mono);font-size:.72rem;color:#fff;background:rgba(16,19,28,.55);
+  backdrop-filter:blur(4px);padding:.35rem .65rem;border-radius:6px;letter-spacing:.04em;
 }
 .about-facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.75rem;}
 .fact{border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;background:var(--panel);}
@@ -229,6 +234,12 @@ img{max-width:100%;display:block;}
   padding:1.9rem;display:flex;flex-direction:column;transition:.25s;
 }
 .proj-card:hover{border-color:var(--accent);box-shadow:0 20px 40px -24px rgba(59,79,224,.35);}
+.proj-shot{
+  border-radius:9px;overflow:hidden;border:1px solid #1c2140;background:var(--code-bg);
+  margin-bottom:1.25rem;box-shadow:0 16px 32px -18px rgba(16,19,28,.35);
+}
+.proj-shot .term-bar{padding:.55rem .75rem;}
+.proj-shot img{width:100%;height:170px;object-fit:cover;object-position:top;display:block;}
 .proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.9rem;gap:1rem;}
 .proj-top h3{font-size:1.2rem;}
 .proj-index{font-family:var(--mono);font-size:.75rem;color:var(--ink-faint);}
@@ -362,7 +373,10 @@ img{max-width:100%;display:block;}
     <div class="wrap">
       <div class="about-grid">
         <div class="reveal">
-          <div class="monogram"><span>YD</span></div>
+          <div class="monogram">
+            <img src="images/yaseen.jpg" alt="Yaseen Dawood">
+            <span class="tag">Yaseen Dawood</span>
+          </div>
           <div class="about-facts">
             <div class="fact"><div class="k">Location</div><div class="v">Johannesburg, ZA</div></div>
             <div class="fact"><div class="k">Role</div><div class="v">Software Developer</div></div>
@@ -488,6 +502,10 @@ img{max-width:100%;display:block;}
       </div>
       <div class="proj-grid">
         <article class="proj-card reveal">
+          <div class="proj-shot">
+            <div class="term-bar"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span></div>
+            <img src="images/forextutorbot.png" alt="ForexTutorBot chat interface answering a question about supply and demand zones">
+          </div>
           <div class="proj-top"><h3>ForexTutorBot</h3><span class="proj-index">01 / AI</span></div>
           <p>An AI-powered Forex study assistant that answers trading questions in plain language.</p>
           <ul>
@@ -502,6 +520,10 @@ img{max-width:100%;display:block;}
         </article>
 
         <article class="proj-card reveal">
+          <div class="proj-shot">
+            <div class="term-bar"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span></div>
+            <img src="images/taytech.png" alt="TayTech desktop invoicing application menu bar">
+          </div>
           <div class="proj-top"><h3>TayTech</h3><span class="proj-index">02 / Desktop</span></div>
           <p>Invoicing &amp; client management system for a local technology retail shop.</p>
           <ul>
@@ -515,6 +537,10 @@ img{max-width:100%;display:block;}
         </article>
 
         <article class="proj-card reveal">
+          <div class="proj-shot">
+            <div class="term-bar"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span></div>
+            <img src="images/mangalaw.png" alt="Sohail Manga Attorneys corporate website homepage">
+          </div>
           <div class="proj-top"><h3>Sohail Manga Attorneys</h3><span class="proj-index">03 / Web</span></div>
           <p>A live corporate website built and deployed for a functioning law firm.</p>
           <ul>
@@ -529,6 +555,10 @@ img{max-width:100%;display:block;}
         </article>
 
         <article class="proj-card reveal">
+          <div class="proj-shot">
+            <div class="term-bar"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span></div>
+            <img src="images/blueriverzoo.png" alt="Blue River Zoo visitor welcome page">
+          </div>
           <div class="proj-top"><h3>Blue River Zoo Management System</h3><span class="proj-index">04 / Team</span></div>
           <p>A C# web application managing animal records, staff scheduling and daily zoo operations.</p>
           <ul>
